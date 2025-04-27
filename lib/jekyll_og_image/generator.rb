@@ -22,8 +22,8 @@ class JekyllOgImage::Generator < Jekyll::Generator
 
       post.data["image"] ||= {
         "path" => File.join(base_path, "#{post.data['slug']}.png"),
-        "width" => 1200,
-        "height" => 600,
+        "width" => JekyllOgImage.config.canvas.width,
+        "height" => JekyllOgImage.config.canvas.height,
         "alt" => post.data["title"]
       }
     end
@@ -50,7 +50,7 @@ class JekyllOgImage::Generator < Jekyll::Generator
       File.read(File.join(site.config["source"], config.canvas.background_image))
     end
 
-    JekyllOgImage::Element::Canvas.new(1200, 600,
+    JekyllOgImage::Element::Canvas.new(config.canvas.width, config.canvas.height,
       background_color: config.canvas.background_color,
       background_image: background_image
     )
